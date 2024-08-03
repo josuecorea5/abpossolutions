@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Product Page";
+}
+<div class="px-2">
+    <h2>Products</h2>
+    <div class="text-end">
+        <button class="bg-success text-white px-5 py-2 border-0 rounded me-3">Add</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Unit Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">State</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <th scope="row">@product.Id</th>
+                    <td>@product.Name</td>
+                    <td>@product.UnitPrice</td>
+                    <td>@product.Quantity</td>
+                    <td>
+                        @if(product.Active)
+                        {
+                            <span class="d-inline-block rounded bg-primary bg-gradient text-white px-2" style="font-size: 12px">
+                                ACTIVE
+                            </span>
+                        }else
+                        {
+                            <span class="d-inline-block rounded bg-primary bg-gradient text-white px-2">
+                                INACTIVE
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        <div class="d-flex gap-3">
+                            <button class="bg-warning text-white px-2 py-1 border-0 rounded w-25">Edit</button>
+                            <button class="bg-danger text-white px-2 py-1 border-0 rounded w-25">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
