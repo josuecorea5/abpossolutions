@@ -1,5 +1,7 @@
 using abposus.Data;
+using abposus.Interfaces;
 using abposus.Models;
+using abposus.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

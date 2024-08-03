@@ -1,19 +1,19 @@
-﻿using abposus.Data;
+﻿using abposus.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace abposus.Controllers
 {
     public class ProductController : Controller
     {
-        private ApplicationDbContext _context;
+        private IProductRepository _productRepository;
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(IProductRepository productRepository)
         {
-            _context = context;
+            _productRepository = productRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var products = _context.Products.ToList();
+            var products = await _productRepository.GetAllProducts();
             return View(products);
         }
     }
