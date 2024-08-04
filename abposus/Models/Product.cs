@@ -10,6 +10,7 @@ namespace abposus.Models
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public bool Active { get; set; } = true;
+        public bool IsDeleted { get; set; } = false;
         public List<Sale> Sale { get; set; } = [];
     }
 }

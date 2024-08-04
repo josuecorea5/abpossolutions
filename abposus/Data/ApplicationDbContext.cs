@@ -23,6 +23,12 @@ namespace abposus.Data
                 .HasMany(p => p.Products)
                 .WithMany(s => s.Sale)
                 .UsingEntity<SaleProduct>();
+
+            modelBuilder.Entity<Product>()
+                .HasQueryFilter(p => !p.IsDeleted);
+
+            modelBuilder.Entity<Sale>()
+                .HasQueryFilter(s => !s.IsDeleted);
         }
     }
 }

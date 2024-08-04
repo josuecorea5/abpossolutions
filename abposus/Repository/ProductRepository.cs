@@ -21,7 +21,8 @@ namespace abposus.Repository
 
         public bool Delete(Product product)
         {
-            _context.Products.Remove(product);
+            product.IsDeleted = true;
+            _context.Products.Update(product);
             return Save();
         }
 

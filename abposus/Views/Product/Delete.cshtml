@@ -1,0 +1,33 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Product Delete Page";
+}
+<div class="p-2">
+    <form method="post" asp-action="Delete">
+        <h2 class="text-center">Delete Product</h2>
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Name</label>
+            <input asp-for="Name" type="text" disabled class="form-control" id="name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UnitPrice" class="form-label">Unit price</label>
+            <input asp-for="UnitPrice" type="text" disabled class="form-control" id="unitPrice">
+            <span asp-validation-for="UnitPrice" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Quantity" class="form-label">Quantity</label>
+            <input asp-for="Quantity" type="number" disabled class="form-control" id="quantity">
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+        <div class="form-check form-switch mb-3 d-flex flex-column p-0">
+            <label asp-for="Active" class="form-label">State</label>
+            <input class="form-check-input d-block m-0" disabled type="checkbox" asp-for="Active" role="switch" id="active">
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-controller="Product" asp-action="Index" class="d-inline-block btn btn-secondary">Go back</a>
+        </div>
+    </form>
+</div>

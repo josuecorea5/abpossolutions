@@ -13,6 +13,7 @@ namespace abposus.Models
         public DateTime CreationDate { get; set; } = DateTime.Now;
         public DateTime? PaidDate { get; set; }
         public bool IsPaid { get; set; } = false;
+        public bool IsDeleted { get; set; } = false;
         public ICollection<Product> Products { get; set; } = [];
     }
 }
