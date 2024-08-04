@@ -2,6 +2,9 @@ using abposus.Data;
 using abposus.Interfaces;
 using abposus.Models;
 using abposus.Repository;
+using abposus.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +15,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+
+//Fluent validation
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddScoped<IValidator<Product>, ProductValidator>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

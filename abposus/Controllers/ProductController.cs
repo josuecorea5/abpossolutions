@@ -1,4 +1,5 @@
 ﻿using abposus.Interfaces;
+using abposus.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace abposus.Controllers
@@ -15,6 +16,26 @@ namespace abposus.Controllers
         {
             var products = await _productRepository.GetAllProducts();
             return View(products);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Product product)
+        {
+
+            if (!ModelState.IsValid)
+            {
+
+                return View(product);
+            }
+
+            _productRepository.Add(product);
+
+            return RedirectToAction("Index");
         }
     }
 }
