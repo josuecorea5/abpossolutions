@@ -19,7 +19,7 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="bg-secondary text-center rounded">
-                    <a href="#" class="nav-link text-white">
+                    <a asp-controller="Account" asp-action="Index" class="nav-link text-white">
                         <i class="bi bi-person"></i>
                         Employees
                     </a>
@@ -46,6 +46,11 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                                 </li>
                             </ul>
                         </div>

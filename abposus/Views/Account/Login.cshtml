@@ -1,0 +1,35 @@
+﻿@using abposus.ViewModels
+
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+<div class="p-2">
+    <div class="col-12 d-flex justify-content-center">
+        @if(TempData["Error"] != null)
+        {
+            <div class="col-md-6 alert alert-danger text-center">
+                <span>@TempData["Error"]</span>
+            </div>
+        }
+    </div>
+    <div class="col-md-8 offset-2">
+        <form method="post" asp-action="Login">
+            <h2 class="text-center">Login</h2>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" type="text" class="form-control" id="email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control" id="password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

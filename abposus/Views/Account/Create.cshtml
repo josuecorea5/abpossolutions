@@ -1,0 +1,52 @@
+﻿@using abposus.ViewModels
+
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Login Page";
+}
+<div class="p-2">
+    <div class="col-12 d-flex justify-content-center">
+        @if (TempData["Error"] != null)
+        {
+            <div class="col-md-6 alert alert-danger text-center">
+                <span>@TempData["Error"]</span>
+            </div>
+        }
+    </div>
+    <div class="col-md-8 offset-2">
+        <form method="post" asp-action="Create">
+            <h2 class="text-center">Create user</h2>
+            <div class="mb-3">
+                <label asp-for="FirstName" class="form-label">Fiest Name</label>
+                <input asp-for="FirstName" type="text" class="form-control" id="firstName">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="LastName" class="form-label">Last Name</label>
+                <input asp-for="LastName" type="text" class="form-control" id="lastName">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" type="text" class="form-control" id="email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control" id="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Type" class="form-label">Role</label>
+                <select asp-for="Type" asp-items="@Html.GetEnumSelectList<Roles>()" class="form-select">
+                    <option disabled selected>-- Select role --</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success">Create</button>
+                <a asp-controller="Home" asp-action="Index" class="d-inline-block btn btn-secondary">Go back</a>
+            </div>
+        </form>
+    </div>
+</div>
