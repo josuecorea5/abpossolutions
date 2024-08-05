@@ -12,20 +12,28 @@
 <body class="overflow-hidden">
     <div class="d-flex">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px; height: 100vh">
-            <p class="text-center fs-2">Welcome</p>
-            <div class="d-flex justify-content-center">
-                <img class="rounded-circle w-50" alt="user placeholder" src="/images/user-placeholder.jpg" />
-            </div>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="bg-secondary text-center rounded">
-                    <a asp-controller="Account" asp-action="Index" class="nav-link text-white">
-                        <i class="bi bi-person"></i>
-                        Employees
-                    </a>
-                </li>
-            </ul>
-            <hr>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <p class="text-center fs-2">Welcome</p>
+                <div class="d-flex justify-content-center">
+                    <img class="rounded-circle w-50" alt="user placeholder" src="/images/user-placeholder.jpg" />
+                </div>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto h-100 justify-content-between">
+                    <li class="bg-secondary text-center rounded">
+                        <a asp-controller="Account" asp-action="Index" class="nav-link text-white">
+                            <i class="bi bi-person"></i>
+                            Employees
+                        </a>
+                    </li>
+                    <li class="text-center rounded">
+                        <form asp-controller="Account" asp-action="Logout">
+                            <button class="btn btn-outline-primary">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+                <hr>
+            }
         </div>
         <main role="main" class="pb-3 w-100">
             <header>
@@ -37,22 +45,38 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Accounting</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Sales Requests</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
-                                </li>
-                            </ul>
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                                </li>
-                            </ul>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <ul class="navbar-nav flex-grow-1">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Accounting</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Sale" asp-action="Index">
+                                            Sales Requests
+                                        </a>
+                                    </li>
+                                    @if (User.IsInRole(Roles.ADMIN.ToString()))
+                                    {
+
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" 
+                                            asp-action="Index"
+                                            >
+                                                Products
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="navbar-nav flex-grow-1">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                    </li>
+                                </ul>
+                            }
                         </div>
                     </div>
                 </nav>

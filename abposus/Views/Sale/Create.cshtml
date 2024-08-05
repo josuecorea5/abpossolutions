@@ -1,0 +1,76 @@
+﻿@using abposus.ViewModels
+@model CreateSaleViewModel
+
+@{
+    ViewData["Title"] = "Product Page";
+}
+<div class="p-2">
+    <div class="row gx-5">
+        <div class="col-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col" class="text-center">Quantity</th>
+                        <th scope="col" class="text-center">Unit Price</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var product in Model.Products)
+                    {
+                        <tr>
+                            <td class="product-title">@product.Name</td>
+                            <td class="text-center">@product.Quantity</td>
+                            <td class="text-center product-unitPrice">$@product.UnitPrice</td>
+                            <td>
+                                <button data-id="@product.Id" class="btn btn-outline-success btnAddSale">Add</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-7">
+            <div class="col-9" id="productList">
+                <p>Products added</p>
+                <table class="table" id="productsAdded">
+                    <thead class="text-center">
+                        <tr>
+                            <th scope="col">Quantity</th>
+                            <th scope="col" class="text-center">Product</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center productsAdded">
+                    </tbody>
+                </table>
+                <hr/>
+                <p>Total: $<span id="total-products">0</span></p>
+            </div>
+            <form class="col-9">
+                <div class="mb-3">
+                    <label class="form-label">Client</label>
+                    <input type="text" class="form-control" id="client">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-control" id="description">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phone">
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-success">Sell</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="~/js/sales.js"></script>
+}
