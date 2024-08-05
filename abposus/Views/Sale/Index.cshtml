@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Sale>
+
+@{
     ViewData["Title"] = "Sales Page";
 }
 <div class="p-2">
@@ -8,4 +10,43 @@
             Create
         </a>
     </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Client</th>
+                <th scope="col">Description</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Total</th>
+                <th scope="col">Date</th>
+                <th scope="col">IsPaid</th>
+                <th scope="col">Paid Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sale in Model)
+            {
+                <tr>
+                    <th scope="row">@sale.Id</th>
+                    <td>@sale.Client</td>
+                    <td>@sale.Description</td>
+                    <td>@sale.Contact</td>
+                    <td>$@sale.TotalPrice</td>
+                    <td>@sale.CreationDate</td>
+                    <td>
+                        <span class="d-inline-block rounded bg-primary bg-gradient text-white px-2" style="font-size: 12px">
+                            @sale.IsPaid
+                        </span>
+                    </td>
+                    @if(sale.PaidDate != null)
+                    {
+                        <td>@sale.PaidDate</td>
+                    }else
+                    {
+                        <td></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

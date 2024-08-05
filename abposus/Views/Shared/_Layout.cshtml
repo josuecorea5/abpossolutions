@@ -15,17 +15,21 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <p class="text-center fs-2">Welcome</p>
+                <p class="text-center">@User.Identity.Name</p>
                 <div class="d-flex justify-content-center">
                     <img class="rounded-circle w-50" alt="user placeholder" src="/images/user-placeholder.jpg" />
                 </div>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto h-100 justify-content-between">
-                    <li class="bg-secondary text-center rounded">
-                        <a asp-controller="Account" asp-action="Index" class="nav-link text-white">
-                            <i class="bi bi-person"></i>
-                            Employees
-                        </a>
-                    </li>
+                    @if (User.IsInRole(Roles.ADMIN.ToString()))
+                    {
+                        <li class="bg-secondary text-center rounded">
+                            <a asp-controller="Account" asp-action="Index" class="nav-link text-white">
+                                <i class="bi bi-person"></i>
+                                Employees
+                            </a>
+                        </li>
+                    }
                     <li class="text-center rounded">
                         <form asp-controller="Account" asp-action="Logout">
                             <button class="btn btn-outline-primary">Logout</button>
@@ -51,11 +55,14 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Accounting</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Sale" asp-action="Index">
-                                            Sales Requests
-                                        </a>
-                                    </li>
+                                    @if(User.IsInRole(Roles.ADMIN.ToString()) || User.IsInRole(Roles.SELLER.ToString()))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Sale" asp-action="Index">
+                                                Sales Requests
+                                            </a>
+                                        </li>
+                                    }
                                     @if (User.IsInRole(Roles.ADMIN.ToString()))
                                     {
 

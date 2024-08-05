@@ -22,7 +22,7 @@
                         <tr>
                             <td class="product-title">@product.Name</td>
                             <td class="text-center">@product.Quantity</td>
-                            <td class="text-center product-unitPrice">$@product.UnitPrice</td>
+                            <td class="text-center">$<span class="product-unitPrice">@product.UnitPrice</span></td>
                             <td>
                                 <button data-id="@product.Id" class="btn btn-outline-success btnAddSale">Add</button>
                             </td>
@@ -50,18 +50,19 @@
             <form class="col-9">
                 <div class="mb-3">
                     <label class="form-label">Client</label>
-                    <input type="text" class="form-control" id="client">
+                    <input required type="text" class="form-control" id="client">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Description</label>
-                    <input type="text" class="form-control" id="description">
+                    <input required type="text" class="form-control" id="description">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Phone</label>
-                    <input type="text" class="form-control" id="phone">
+                    <input required type="text" class="form-control" id="phone">
                 </div>
+                <span class="text-danger" id="error-message"></span>
                 <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-success">Sell</button>
+                    <button type="button" class="btn btn-success" id="createSale">Sell</button>
                 </div>
             </form>
         </div>
