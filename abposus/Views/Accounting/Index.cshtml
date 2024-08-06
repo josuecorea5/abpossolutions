@@ -27,26 +27,74 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var sale in Model)
+                    @if (Model.Where(s => !s.IsPaid).Count() == 0)
                     {
                         <tr>
-                            <th scope="row">@sale.Id</th>
-                            <td>@sale.Client</td>
-                            <td>@sale.Description</td>
-                            <td>@sale.CreationDate</td>
-                            <td>$@sale.TotalPrice</td>
-                            <td>
-                                <a asp-controller="Accounting" asp-action="Detail" asp-route-id="@sale.Id"
-                                   class="d-inline-block btn btn-outline-secondary px-2 py-1 rounded
-                                   text-center text-decoration-none">
-                                    Details
-                                </a>
-                            </td>
+                            <td colspan="5" class="text-center">There are no pending paid sallers</td>
                         </tr>
+                    }else
+                    {                        
+                        @foreach (var sale in Model.Where(s => !s.IsPaid))
+                        {
+                            <tr>
+                                <th scope="row">@sale.Id</th>
+                                <td>@sale.Client</td>
+                                <td>@sale.Description</td>
+                                <td>@sale.CreationDate</td>
+                                <td>$@sale.TotalPrice</td>
+                                <td>
+                                    <a asp-controller="Accounting" asp-action="Detail" asp-route-id="@sale.Id"
+                                        class="d-inline-block btn btn-outline-secondary px-2 py-1 rounded
+                                        text-center text-decoration-none">
+                                        Details
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
         </div>
-        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">BABY</div>
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(Model.Where(s => s.IsPaid).Count() == 0)
+                    {
+                        <tr>
+                            <td class="text-center" colspan="5">There are no paid sallers</td>
+                        </tr>
+                    }else
+                    {                        
+                        @foreach (var sale in Model.Where(s => s.IsPaid))
+                        {
+                            <tr>
+                                <th scope="row">@sale.Id</th>
+                                <td>@sale.Client</td>
+                                <td>@sale.Description</td>
+                                <td>@sale.CreationDate</td>
+                                <td>$@sale.TotalPrice</td>
+                                <td>
+                                    <a asp-controller="Accounting" asp-action="Detail" asp-route-id="@sale.Id"
+                                        class="d-inline-block btn btn-outline-secondary px-2 py-1 rounded
+                                        text-center text-decoration-none">
+                                        Details
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

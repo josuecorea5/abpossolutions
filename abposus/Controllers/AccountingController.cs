@@ -23,5 +23,21 @@ namespace abposus.Controllers
             var sale = await _saleRepository.GetById(id);
             return View(sale);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> PaySale(int id)
+        {
+            var sale = await _saleRepository.GetById(id);
+
+            if(sale == null)
+            {
+                TempData["Error"] = "Sale not found";
+                return RedirectToAction("Index");
+            }
+
+            await _saleRepository.PaySale(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

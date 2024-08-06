@@ -7,6 +7,7 @@ namespace abposus.Interfaces
         Task<IEnumerable<Sale>> GetAllSales();
         Task<Sale> GetById(int id);
         void Add(Sale sale);
+        Task PaySale(int id);
         bool Save();
     }
 }
