@@ -37,6 +37,7 @@ namespace abposus.Repository
         {
             var sale = await _contex.Sales.FirstOrDefaultAsync(s => s.Id == id);
             sale.IsPaid = true;
+            sale.PaidDate = DateTime.Now;
             await _contex.SaveChangesAsync();
         }
     }
