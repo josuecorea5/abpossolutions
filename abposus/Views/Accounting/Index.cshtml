@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Sale>
+
+@{
+    ViewData["Title"] = "Product Page";
+}
+<div class="px-2">
+    <h2>Accounting</h2>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Sales Pending</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Sales paid</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var sale in Model)
+                    {
+                        <tr>
+                            <th scope="row">@sale.Id</th>
+                            <td>@sale.Client</td>
+                            <td>@sale.Description</td>
+                            <td>@sale.CreationDate</td>
+                            <td>$@sale.TotalPrice</td>
+                            <td>
+                                <a asp-controller="Accounting" asp-action="Detail" asp-route-id="@sale.Id"
+                                   class="d-inline-block btn btn-outline-secondary px-2 py-1 rounded
+                                   text-center text-decoration-none">
+                                    Details
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">BABY</div>
+    </div>
+</div>

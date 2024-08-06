@@ -27,5 +27,10 @@ namespace abposus.Repository
             var saved = _contex.SaveChanges();
             return saved > 0;
         }
+
+        public async Task<Sale> GetById(int id)
+        {
+            return await _contex.Sales.Include(s => s.Products).FirstOrDefaultAsync(s => s.Id == id);
+        }
     }
 }

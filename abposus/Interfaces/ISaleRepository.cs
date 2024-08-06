@@ -5,6 +5,7 @@ namespace abposus.Interfaces
     public interface ISaleRepository
     {
         Task<IEnumerable<Sale>> GetAllSales();
+        Task<Sale> GetById(int id);
         void Add(Sale sale);
         bool Save();
     }
