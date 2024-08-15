@@ -1,5 +1,6 @@
 ﻿using abposus.Interfaces;
 using abposus.Models;
+using abposus.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +27,7 @@ namespace abposus.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(CreateProductViewModel product)
         {
 
             if (!ModelState.IsValid)
@@ -35,7 +36,14 @@ namespace abposus.Controllers
                 return View(product);
             }
 
-            _productRepository.Add(product);
+            var newProduct = new Product()
+            {
+                Name = product.Name,
+                UnitPrice = product.UnitPrice,
+                Quantity = product.Quantity,
+            };
+
+            _productRepository.Add(newProduct);
 
             return RedirectToAction("Index");
         }
