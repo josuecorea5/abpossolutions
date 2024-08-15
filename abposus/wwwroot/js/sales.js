@@ -26,9 +26,29 @@
                     <tr>
                        <td class="quantity-product-${idProduct}">${quantity}</td>
                        <td>${titleProduct}</td>
+                       <td>
+                           <i role="button" class="bi bi-x-lg p-1 text-danger rounded-circle remove-${idProduct}"></i>
+                       </td>
                    </tr>
                 `;
                 productsTable.append(productItem);
+
+                $(`.remove-${idProduct}`).on("click", function () {
+                    const quantity = ($(`.quantity-product-${idProduct}`));
+                    const product = products.find(p => p.productId === idProduct);
+                    const index = products.indexOf(product);
+                    if (Number(quantity.text()) === 1) {
+                        products.splice(index, 1);
+                        quantity.text(Number(quantity.text()) - 1);
+                        quantity.parent().remove();
+                        console.log("REMOVING THIS ELEMENT PLEASE")
+                        console.log(products);
+                    } else {
+                        products.splice(index, 1);
+                        quantity.text(Number(quantity.text()) - 1);
+                        console.log(products);
+                    }
+                })
             }
             total = products.reduce((acc, curr) => acc + curr.UnitPrice, 0);
             totalProducts.text(total);
