@@ -13,20 +13,20 @@ namespace abposus.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ApplicationDbContext _context;
-        private IUserRepository _userRepository;
+        private IUnitOfWork _unitOfWork;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ApplicationDbContext context, IUserRepository userRepository)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ApplicationDbContext context, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var users = await _userRepository.GetUsers();
+            var users = await _unitOfWork.UserRepository.GetUsers();
             return View(users);
         }
 

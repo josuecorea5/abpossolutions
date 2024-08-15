@@ -13,17 +13,15 @@ namespace abposus.Repository
         {
             _context = context;
         }
-        public bool Add(Product product)
+        public void Add(Product product)
         {
             _context.Products.Add(product);
-            return Save();
         }
 
-        public bool Delete(Product product)
+        public void Delete(Product product)
         {
             product.IsDeleted = true;
             _context.Products.Update(product);
-            return Save();
         }
 
         public async Task<IEnumerable<Product>> GetAllProducts()
@@ -36,16 +34,9 @@ namespace abposus.Repository
             return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0 ? true : false;
-        }
-
-        public bool Update(Product product)
+        public void Update(Product product)
         {
             _context.Products.Update(product);
-            return Save();
         }
     }
 }

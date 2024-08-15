@@ -8,6 +8,5 @@ namespace abposus.Interfaces
         Task<Sale> GetById(int id);
         void Add(Sale sale);
         Task PaySale(int id);
-        bool Save();
     }
 }

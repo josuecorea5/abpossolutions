@@ -17,11 +17,5 @@ namespace abposus.Repository
         {
             _context.SaleProducts.Add(saleProduct);
         }
-
-        public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0;
-        }
     }
 }

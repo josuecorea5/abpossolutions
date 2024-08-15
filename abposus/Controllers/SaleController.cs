@@ -9,26 +9,22 @@ namespace abposus.Controllers
     [Authorize]
     public class SaleController : Controller
     {
-        private readonly IProductRepository _productRepository;
-        private readonly ISaleRepository _saleRepository;
-        private readonly ISaleProductRepository _saleProductRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SaleController(IProductRepository productRepository, ISaleRepository saleRepository, ISaleProductRepository saleProductRepository)
+        public SaleController(IUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository;
-            _saleRepository = saleRepository;
-            _saleProductRepository = saleProductRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IActionResult> Index()
         {
-            var sales = await _saleRepository.GetAllSales();
+            var sales = await _unitOfWork.SaleRepository.GetAllSales();
             return View(sales);
         }
 
         public async Task<IActionResult> Create()
         {
-            var products = await _productRepository.GetAllProducts();
+            var products = await _unitOfWork.ProductRepository.GetAllProducts();
             CreateSaleViewModel viewModel = new CreateSaleViewModel()
             {
                 Products = products
@@ -50,8 +46,8 @@ namespace abposus.Controllers
                     TotalPrice = createSaleViewModel.TotalPrice,
                 };
 
-                _saleRepository.Add(newSale);
-                _saleRepository.Save();
+                _unitOfWork.SaleRepository.Add(newSale);
+                _unitOfWork.Save();
 
                 var saleId = newSale.Id;
 
@@ -63,10 +59,10 @@ namespace abposus.Controllers
                         SaleId = saleId,
                     };
 
-                    _saleProductRepository.Add(saleProduct);
+                    _unitOfWork.SaleProductRepository.Add(saleProduct);
                 }
 
-                _saleProductRepository.Save();
+                _unitOfWork.Save();
 
                 return Json(new { message = "Sale created successfully" });
 

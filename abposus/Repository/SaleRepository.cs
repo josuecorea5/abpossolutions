@@ -22,12 +22,6 @@ namespace abposus.Repository
             _contex.Sales.Add(sale);
         }
 
-        public bool Save()
-        {
-            var saved = _contex.SaveChanges();
-            return saved > 0;
-        }
-
         public async Task<Sale> GetById(int id)
         {
             return await _contex.Sales.Include(s => s.Products).FirstOrDefaultAsync(s => s.Id == id);
@@ -38,7 +32,6 @@ namespace abposus.Repository
             var sale = await _contex.Sales.FirstOrDefaultAsync(s => s.Id == id);
             sale.IsPaid = true;
             sale.PaidDate = DateTime.Now;
-            await _contex.SaveChangesAsync();
         }
     }
 }

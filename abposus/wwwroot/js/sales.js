@@ -41,17 +41,15 @@
                         products.splice(index, 1);
                         quantity.text(Number(quantity.text()) - 1);
                         quantity.parent().remove();
-                        console.log("REMOVING THIS ELEMENT PLEASE")
-                        console.log(products);
                     } else {
                         products.splice(index, 1);
                         quantity.text(Number(quantity.text()) - 1);
-                        console.log(products);
                     }
+                    total = calculateTotal(products);
+                    totalProducts.text(total.toFixed(2));
                 })
             }
-            total = products.reduce((acc, curr) => acc + curr.UnitPrice, 0);
-            console.log(total);
+            total = calculateTotal(products);
             totalProducts.text(total.toFixed(2));
         })
     })
@@ -84,4 +82,8 @@
             }
         })
     })
+
+    function calculateTotal(products) {
+        return products.reduce((acc, curr) => acc + curr.UnitPrice, 0);
+    }
 });

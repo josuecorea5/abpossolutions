@@ -6,9 +6,8 @@ namespace abposus.Interfaces
     {
         Task<IEnumerable<Product>> GetAllProducts();
         Task<Product> GetProductById(int id);
-        bool Add(Product product);
-        bool Update(Product product);
-        bool Delete(Product product);
-        bool Save();
+        void Add(Product product);
+        void Update(Product product);
+        void Delete(Product product);
     }
 }

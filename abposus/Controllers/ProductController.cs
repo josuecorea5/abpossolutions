@@ -9,15 +9,15 @@ namespace abposus.Controllers
     [Authorize]
     public class ProductController : Controller
     {
-        private IProductRepository _productRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<IActionResult> Index()
         {
-            var products = await _productRepository.GetAllProducts();
+            var products = await _unitOfWork.ProductRepository.GetAllProducts();
             return View(products);
         }
 
@@ -43,14 +43,15 @@ namespace abposus.Controllers
                 Quantity = product.Quantity,
             };
 
-            _productRepository.Add(newProduct);
+            _unitOfWork.ProductRepository.Add(newProduct);
+            _unitOfWork.Save();
 
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var product = await _productRepository.GetProductById(id);
+            var product = await _unitOfWork.ProductRepository.GetProductById(id);
             if (product == null)
             {
                 return View("Error");
@@ -67,7 +68,9 @@ namespace abposus.Controllers
                 return View(product);
             }
 
-            var productUpdated = _productRepository.Update(product);
+            _unitOfWork.ProductRepository.Update(product);
+
+            var productUpdated = _unitOfWork.Save();
 
             if(productUpdated)
             {
@@ -79,7 +82,7 @@ namespace abposus.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var product = await _productRepository.GetProductById(id);
+            var product = await _unitOfWork.ProductRepository.GetProductById(id);
 
             if (product == null)
             {
@@ -92,14 +95,15 @@ namespace abposus.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await _productRepository.GetProductById(id);
+            var product = await _unitOfWork.ProductRepository.GetProductById(id);
 
             if(product == null)
             {
                 return RedirectToAction("Index");
             }
 
-            var productDeleted = _productRepository.Delete(product);
+            _unitOfWork.ProductRepository.Delete(product);
+            var productDeleted = _unitOfWork.Save();
 
             if(productDeleted)
             {
