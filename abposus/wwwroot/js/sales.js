@@ -51,7 +51,8 @@
                 })
             }
             total = products.reduce((acc, curr) => acc + curr.UnitPrice, 0);
-            totalProducts.text(total);
+            console.log(total);
+            totalProducts.text(total.toFixed(2));
         })
     })
     btnCreateSale.on("click", function (e) {
@@ -75,11 +76,11 @@
             data: formData,
             success: function (response) {
                 alert(response.message);
-                window.location.href = '@Url.Action("Index", "Sale")'
+                window.location.href = '/Sale'
             },
             error: function (error) {
                 console.log(error.message);
-                window.location.href = '@Url.Action("Index", "Sale")'
+                window.location.href = '/Sale'
             }
         })
     })
