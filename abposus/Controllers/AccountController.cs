@@ -2,6 +2,7 @@
 using abposus.Interfaces;
 using abposus.Models;
 using abposus.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,7 @@ namespace abposus.Controllers
             _userRepository = userRepository;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var users = await _userRepository.GetUsers();
@@ -65,11 +67,13 @@ namespace abposus.Controllers
             return View(loginViewModel);
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(RegisterViewModel registerViewModel)
         {

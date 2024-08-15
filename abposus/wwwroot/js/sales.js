@@ -55,11 +55,11 @@
             data: formData,
             success: function (response) {
                 alert(response.message);
-                location.href = "/Sale";
+                window.location.href = '@Url.Action("Index", "Sale")'
             },
             error: function (error) {
                 console.log(error.message);
-                location.href = "/Sale";
+                window.location.href = '@Url.Action("Index", "Sale")'
             }
         })
     })

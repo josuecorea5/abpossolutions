@@ -1,9 +1,11 @@
 ﻿using abposus.Interfaces;
 using abposus.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace abposus.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private IProductRepository _productRepository;

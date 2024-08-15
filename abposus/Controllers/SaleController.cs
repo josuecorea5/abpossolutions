@@ -1,10 +1,12 @@
 ﻿using abposus.Interfaces;
 using abposus.Models;
 using abposus.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace abposus.Controllers
 {
+    [Authorize]
     public class SaleController : Controller
     {
         private readonly IProductRepository _productRepository;
