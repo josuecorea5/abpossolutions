@@ -13,13 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-//builder.Services.AddScoped<IProductRepository, ProductRepository>();
-//builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<ISaleRepository, SaleRepository>();
-//builder.Services.AddScoped<ISaleProductRepository, SaleProductRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 
 
 //Fluent validation
